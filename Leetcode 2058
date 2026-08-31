@@ -1,4 +1,45 @@
-//Optimal Approach
+//1. Linear Time Approach using an ArrayList
+
+// class Solution {
+//     public int[] nodesBetweenCriticalPoints(ListNode head) {
+//         ArrayList<Integer> list = new ArrayList<>();
+//         ListNode temp = head;
+//         while (temp != null) {
+//             list.add(temp.val);
+//             temp = temp.next;
+//         }
+//         int localMax = -1;              
+//         int localMin = -1;              
+//         int localMax1 = Integer.MAX_VALUE; 
+//         int localMin1 = -1;
+//         int n = list.size();
+
+//         for (int i = 0; i < n - 2; i++) {
+//             int a = list.get(i);
+//             int b = list.get(i + 1);
+//             int c = list.get(i + 2);
+//             if ((b > a && b > c) || (b < a && b < c)) {
+//                 int current = i + 1;
+//                 if (localMax == -1) localMax = current;
+//                 if (localMin != -1) {
+//                     localMax1 = Math.min(localMax1, current - localMin);
+//                 }
+//                 localMin = current;
+//                 localMin1 = current;
+//             }
+//         }
+
+//         if (localMax == -1 || localMax == localMin) {
+//             return new int[]{-1, -1};
+//         }
+//         int[] arr = new int[2];
+//         arr[0] = localMax1;             // minimum distance
+//         arr[1] = localMin1 - localMax;  // maximum distance
+//         return arr;
+//     }
+// }
+
+//2. Optimal Approach
 
 class Solution {
     public int[] nodesBetweenCriticalPoints(ListNode head) {
