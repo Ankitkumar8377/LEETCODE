@@ -1,0 +1,33 @@
+//Optimal Approach
+
+class Solution {
+    public int[] nodesBetweenCriticalPoints(ListNode head) {
+        ListNode temp = head;
+        ListNode temp1 = temp;
+        ListNode temp2 = temp.next;
+        ListNode temp3 = temp.next.next;
+        int LocalMax = -1;  
+        int LocalMin = -1;  
+        int LocalMax1 = Integer.MAX_VALUE;
+        int LocalMin1 = -1; 
+        int i = 1;
+        while (temp3 != null) {
+            if ((temp2.val > temp1.val && temp2.val > temp3.val) || (temp2.val < temp1.val && temp2.val < temp3.val)) {
+                if (LocalMax == -1) LocalMax = i;
+                if (LocalMin != -1) LocalMax1 = Math.min(LocalMax1, i - LocalMin);
+                LocalMin = i;
+                LocalMin1 = i;
+            }
+            temp1 = temp1.next;
+            temp2 = temp2.next;
+            temp3 = temp3.next;
+            i++;
+        }
+        if (LocalMax == -1 || LocalMax == LocalMin) return new int[]{-1, -1};
+        int[] arr = new int[2];
+        arr[0] = LocalMax1;       // minimum distance
+        arr[1] = LocalMin1 - LocalMax; // maximum distance
+
+        return arr;
+    }
+}
